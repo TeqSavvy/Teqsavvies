@@ -1,0 +1,112 @@
+﻿@model Physiotech.Models.Clinic
+
+@{
+    ViewBag.Title = "Login";
+}
+
+
+
+<section class="display_section">
+    
+    <br /><br /><br /><br /><br /><br />
+    @Html.Partial("_welcome.Mobile")
+</section>
+
+<section class="display_register">
+    <br /><br /><br /><br /><br /><br />
+   @Html.Partial("_register")
+</section>
+
+
+
+@*@using (Html.BeginForm())
+    {
+        <input name="username" placeholder="username" type="text" id="usernameTxt"/>
+
+        <input type="password" placeholder="password" name="password" id="passwordTxt"/>
+    
+    <input type="submit" value="login" id="loginBtn"/>
+    }
+
+
+<link href="~/Content/toastr.css" rel="stylesheet" />*@
+
+@*@section scripts
+{
+    <script src="~/Scripts/toastr.js"></script>
+    <script src="~/Scripts/staff.js"></script>
+}*@
+
+@section scripts
+{
+    <script src="~/Scripts/toastr.js"></script>
+    <script>
+        $(document).ready(function() {
+            var signupBtn = $("#signup");
+            var loginLoader = $(".ajaxLoader");
+            var sectionDisplay = $(".display_section");
+            var registerSection = $(".display_register");
+            var backBtn = $("#backBtn");
+            backBtn.on("click", function() {
+                registerSection.fadeOut();
+                sectionDisplay.fadeIn();
+            });
+            signupBtn.on("click", function() { //   alert("hello world");
+                sectionDisplay.fadeOut();
+                registerSection.css({ "display": "block" });
+            });
+            var loginStaff = function() { //e.preventDefault();
+                
+                var username = $("#txtUsername").val();
+                var password = $("#txtPassword").val();
+                $.getJSON("/Clinic/Authenticate", "username=" + username + "&password=" + password, function(result) {
+                    
+                    window.location = "/Staff/Portal"; //if (result.Id == null) {
+                    //    toastr.info("Username or Password Incorrect");
+                    //}
+                    //if (result.Role == "Admin") {
+                    //    toastr.info("Welcome" + result.Fullname);
+                    //    window.location = "/Staff/Portal";
+                    //}
+                    //} else {
+                    //    window.location = "/Clinic/Staff";
+                    //}
+                });
+            };
+            $("#loginBtn").on("click", function () {
+                loginLoader.css({display : "block"});
+                loginStaff();
+            });
+            var loader = $("#ajaxLoader");
+            var createClinic = function() {
+                var clinicName = $("#clinicName").val();
+                var adminFullname = $("#adminFullname").val();
+                var adminUsername = $("#adminUsername").val();
+                var adminPassword = $("#adminPassword").val();
+                var adminEmail = $("#adminEmail").val();
+                var adminPhone = $("#adminPhone").val();
+                $.getJSON("Clinic/RegisterClinic", "name=" + clinicName + "&username=" + adminUsername + "&password=" + adminPassword + "&email=" + adminEmail + "&mobile=" + adminEmail + "&fullname=" + adminFullname, function(result) {
+                    if (result == "200") {
+                        alert("Thanks for registering, kindly login in to use our services");
+                        loader.fadeOut();
+                        registerSection.fadeOut();
+                        sectionDisplay.fadeIn();
+                    } else {
+                    } // alert(result);
+                });
+            };
+            var btnRegister = $("#btnClinicRegister");
+            btnRegister.click(function() {
+                loader.css({ display: "block" });
+                createClinic();
+                loader.fadeOut();
+            });
+
+
+        });
+        
+        
+    </script>
+        
+    
+}

@@ -1,0 +1,87 @@
+﻿@using Physiotech.Models
+@model Physiotech.Models.Clinic
+
+@{
+    ViewBag.Title = "Create";
+}
+
+<h2>Takes a few steps to set up your clinic </h2>
+
+@using (Html.BeginForm()) {
+    @Html.AntiForgeryToken()
+    @Html.ValidationSummary(true)
+
+    <fieldset>
+        <legend>Clinic</legend>
+
+        <div class="editor-label">
+           Clinic @Html.LabelFor(model => model.Name)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.Name)
+            @Html.ValidationMessageFor(model => model.Name)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.VerificationCode)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.VerificationCode)
+            @Html.ValidationMessageFor(model => model.VerificationCode)
+        </div>
+        
+        <div class="editor-label">
+          Admin  @Html.LabelFor(model => model.Staff.Fullname)
+        </div>
+        <div class="editor-field">
+            
+            @Html.EditorFor(model => model.Staff.Fullname)
+            @Html.ValidationMessageFor(model => model.Staff.Fullname)
+        </div>
+        <div class="editor-label">
+          Admin  @Html.LabelFor(model => model.Staff.Username)
+        </div>
+        <div class="editor-field">
+            
+            @Html.EditorFor(model => model.Staff.Username)
+            @Html.ValidationMessageFor(model => model.Staff.Username)
+        </div>
+        
+         <div class="editor-label">
+          Admin  @Html.LabelFor(model =>model.Staff.Password)
+        </div>
+        <div class="editor-field">
+            @Html.PasswordFor(model => model.Staff.Password)
+            @Html.ValidationMessageFor(model => model.Staff.Password)
+        </div>
+        
+        <div>
+            @Html.LabelFor(model => model.Staff.EmailAddress)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.Staff.EmailAddress)
+            @Html.ValidationMessageFor(model => model.Staff.EmailAddress)
+        </div>
+        
+        <div>
+            @Html.LabelFor(model => model.Staff.Phonenumber)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.Staff.Phonenumber)
+            @Html.ValidationMessageFor(model => model.Staff.Phonenumber)
+        </div>
+        
+
+        <p>
+            <input type="submit" value="Create" />
+        </p>
+    </fieldset>
+}
+
+<div>
+    @Html.ActionLink("Back to List", "Index")
+</div>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}
